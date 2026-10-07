@@ -3,7 +3,7 @@
    2. Paste it below. Access keys are public by design, so it is safe in client code.
    3. In the Web3Forms dashboard, restrict the key to your domain if your plan allows it. */
 const CONFIG = {
-  accessKey: 'YOUR_WEB3FORMS_ACCESS_KEY',
+  accessKey: '6095390a-3501-4623-9c85-f75cc7c51973',
   endpoint: 'https://api.web3forms.com/submit',
   subject: 'New rental application',
   fromName: 'Rental Application Website',
