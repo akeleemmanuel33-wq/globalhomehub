@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Rental Application</title>
+<script>
+/* Apply saved or system theme before first paint to avoid a flash */
+(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}
+if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+document.documentElement.dataset.theme=t})();
+</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Icon sprite (stroke icons, no emoji) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.7 8.95a1 1 0 0 1-.66 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.5 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"/></symbol>
+  <symbol id="i-loader" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.2-8.56"/></symbol>
+</svg>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top" aria-label="Global Home Rentals">
+      <svg class="ic"><use href="#i-home"/></svg><span>Global Home Rentals</span>
+    </a>
+    <button class="theme" id="theme" type="button" aria-label="Switch to dark theme">
+      <svg class="ic sun"><use href="#i-sun"/></svg>
+      <svg class="ic moon"><use href="#i-moon"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <h1>Apply for your<br>next home.</h1>
+  <p>Five quick steps. We review every application and reply within a few business days.</p>
+</section>
+
+<section class="show" id="show" role="region" aria-roledescription="carousel" aria-label="Featured homes">
+  <div class="slides" id="slides">
+    <!-- Replace each src with your own photo, for example images/home-1.jpg -->
+    <figure class="slide" role="group" aria-roledescription="slide" aria-label="1 of 4">
+      <img src="https://placehold.co/1600x900/1d1d1f/f5f5f7?text=Photo+1" alt="Front of a modern villa" decoding="async">
+      <svg class="ic ph" aria-hidden="true"><use href="#i-home"/></svg>
+      <figcaption class="cap"><strong>Modern villa</strong><span>Exterior</span></figcaption>
+    </figure>
+    <figure class="slide" role="group" aria-roledescription="slide" aria-label="2 of 4">
+      <img src="https://placehold.co/1600x900/1d1d1f/f5f5f7?text=Photo+2" alt="Bright open-plan living room" decoding="async">
+      <svg class="ic ph" aria-hidden="true"><use href="#i-home"/></svg>
+      <figcaption class="cap"><strong>Open living space</strong><span>Living room</span></figcaption>
+    </figure>
+    <figure class="slide" role="group" aria-roledescription="slide" aria-label="3 of 4">
+      <img src="https://placehold.co/1600x900/1d1d1f/f5f5f7?text=Photo+3" alt="Kitchen with island and natural light" decoding="async">
+      <svg class="ic ph" aria-hidden="true"><use href="#i-home"/></svg>
+      <figcaption class="cap"><strong>Designed for daily life</strong><span>Kitchen</span></figcaption>
+    </figure>
+    <figure class="slide" role="group" aria-roledescription="slide" aria-label="4 of 4">
+      <img src="https://placehold.co/1600x900/1d1d1f/f5f5f7?text=Photo+4" alt="Calm bedroom with large windows" decoding="async">
+      <svg class="ic ph" aria-hidden="true"><use href="#i-home"/></svg>
+      <figcaption class="cap"><strong>Room to rest</strong><span>Bedroom</span></figcaption>
+    </figure>
+  </div>
+  <button type="button" class="sb prev" id="prev" aria-label="Previous photo"><svg class="ic"><use href="#i-left"/></svg></button>
+  <button type="button" class="sb next" id="nxt" aria-label="Next photo"><svg class="ic"><use href="#i-right"/></svg></button>
+  <div class="bar">
+    <div class="dots" id="dots"></div>
+    <button type="button" class="pp" id="pp" aria-label="Pause slideshow"><svg class="ic"><use href="#i-pause"/></svg></button>
+  </div>
+</section>
+
+<main class="card" id="card">
+  <ol class="progress" id="progress" aria-label="Application progress"></ol>
+
+  <form id="app" novalidate>
+    <input type="checkbox" name="botcheck" class="trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <fieldset>
+      <legend>About you</legend>
+      <p class="sub">How we can reach you about your application.</p>
+      <div class="grid">
+        <div class="f"><label for="fn">First name</label><input id="fn" name="First Name" autocomplete="given-name" required></div>
+        <div class="f"><label for="ln">Last name</label><input id="ln" name="Last Name" autocomplete="family-name" required></div>
+        <div class="f"><label for="em">Email</label><input id="em" type="email" name="email" placeholder="name@example.com" autocomplete="email" required></div>
+        <div class="f"><label for="ph">Phone</label><input id="ph" type="tel" name="Phone" placeholder="+1(969) 000 0000" autocomplete="tel" required></div>
+        <div class="f full"><label for="a1">Street address</label><input id="a1" name="Address Line 1" autocomplete="address-line1" required></div>
+        <div class="f full"><label for="a2">Address line 2 <span class="opt">Optional</span></label><input id="a2" name="Address Line 2" autocomplete="address-line2"></div>
+        <div class="f"><label for="ct">City</label><input id="ct" name="City" autocomplete="address-level2" required></div>
+        <div class="f"><label for="st">State or province</label><input id="st" name="State" autocomplete="address-level1" required></div>
+        <div class="f"><label for="zp">Postal code <span class="opt">Optional</span></label><input id="zp" name="Postal Code" autocomplete="postal-code"></div>
+        <div class="f"><label for="co">Country</label><select id="co" name="Country" autocomplete="country-name" required></select></div>
+      </div>
+    </fieldset>
+
+    <fieldset hidden>
+      <legend>Work and income</legend>
+      <p class="sub">Helps us confirm the home fits your budget.</p>
+      <div class="grid">
+        <div class="f full"><span class="lbl">Are you currently employed?</span>
+          <div class="seg"><input type="radio" id="e1" name="Employed" value="Yes" required><label for="e1">Yes</label><input type="radio" id="e2" name="Employed" value="No"><label for="e2">No</label></div></div>
+        <div class="f job" hidden><label for="er">Current employer</label><input id="er" name="Employer"></div>
+        <div class="f job" hidden><label for="le">Length of employment</label><input id="le" name="Length of Employment" placeholder="For example, 2 years"></div>
+        <div class="f"><label for="sal">Monthly income, USD <span class="opt">Optional</span></label><input id="sal" type="number" min="0" inputmode="numeric" name="Monthly Income USD"></div>
+        <div class="f"><label for="fund">Deposit funds, USD <span class="opt">Optional</span></label><input id="fund" type="number" min="0" inputmode="numeric" name="Deposit Funds USD"></div>
+      </div>
+    </fieldset>
+
+    <fieldset hidden>
+      <legend>Your new home</legend>
+      <p class="sub">Choose a floor plan and a move-in date.</p>
+      <div class="grid">
+        <div class="f full"><span class="lbl">Floor plan</span><div class="plans" id="plans"></div></div>
+        <div class="f"><label for="mv">Move-in date</label><input id="mv" type="date" name="Move-in Date" required></div>
+        <div class="f"><span class="lbl">Do you have pets?</span>
+          <div class="seg"><input type="radio" id="p1" name="Pets" value="Yes" required><label for="p1">Yes</label><input type="radio" id="p2" name="Pets" value="No"><label for="p2">No</label></div></div>
+        <div class="f full pet" hidden><label for="pd">Describe your pets</label><textarea id="pd" name="Pet Details" placeholder="Type, breed, age and weight"></textarea></div>
+      </div>
+    </fieldset>
+
+    <fieldset hidden>
+      <legend>Background</legend>
+      <p class="sub">Answer honestly. A yes doesn't automatically disqualify you.</p>
+      <div class="grid" id="bg"></div>
+      <div class="f full" id="why" hidden><label for="ex">Please explain</label><textarea id="ex" name="Background Explanation"></textarea></div>
+    </fieldset>
+
+    <fieldset hidden>
+      <legend>Review and sign</legend>
+      <p class="sub">Check your details, then sign with your full name.</p>
+      <dl class="review" id="review"></dl>
+      <div class="f"><label for="sg">Full name</label><input id="sg" name="Signature" autocomplete="name" required></div>
+      <div class="sig" id="sigPrev" aria-hidden="true"></div>
+      <label class="agree"><input type="checkbox" id="ag" required>
+        <span>I confirm this information is complete and accurate. Submitting doesn't guarantee a lease. A home is reserved only when all parties sign a lease agreement, and we may contact you for more information.</span></label>
+    </fieldset>
+
+    <p class="msg" id="msg" role="alert" aria-live="polite"></p>
+    <div class="actions">
+      <button type="button" class="btn ghost" id="back" hidden><svg class="ic"><use href="#i-left"/></svg>Back</button>
+      <button type="submit" class="btn" id="next"><span id="nextLabel">Continue</span><svg class="ic"><use href="#i-right"/></svg></button>
+    </div>
+  </form>
+</main>
+
+<footer class="foot">Your details are used only to process this application.</footer>
+<script src="script.js"></script>
+</body>
+</html>
